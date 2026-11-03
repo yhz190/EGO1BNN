@@ -1,0 +1,45 @@
+{
+  "ckpt": "E_E1_fixsplit_seed1.pt",
+  "theta_int": {
+    "L1": [
+      4,
+      3,
+      3,
+      4,
+      4,
+      4,
+      5,
+      4
+    ],
+    "L2": [
+      5,
+      4,
+      4,
+      4,
+      5,
+      4,
+      4,
+      4
+    ],
+    "L3": [
+      3,
+      3,
+      3,
+      4
+    ]
+  },
+  "fc_bias_int": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "frames": 620,
+  "acc_integer": 0.7112902998924255,
+  "acc_hw_eval_float_theta": 0.7016128897666931,
+  "integer_vs_hw_eval_argmax_agree": 599,
+  "layout": "L1/L2: [N,8,64,64] bit; L3: [N,4,64,64]; L4: 1024 bit; L5: int scores",
+  "note": "padding semantics: bit-domain pad 0 for both domains (bit0 == -1 in pm1 domain)",
+  "replay_argmax_match": 620,
+  "float_reference_note": "hw_eval uses FLOAT theta and FLOAT fc bias; hardware uses floor(theta) and round(bias). Layer bitmaps are identical (L1..L4 diff = 0); only near-tie FC decisions can differ (21/620 frames)."
+}

@@ -1,0 +1,50 @@
+{
+  "arch": "patch2: L3=8ch, feat=2048, FC=4x2048, Q6 bias",
+  "ckpt": "FORMAL_l3x8_s4.pt",
+  "fc_scale": 64,
+  "theta_int_floor": {
+    "L1": [
+      4,
+      4,
+      3,
+      4,
+      4,
+      4,
+      5,
+      4
+    ],
+    "L2": [
+      5,
+      4,
+      4,
+      4,
+      5,
+      4,
+      4,
+      4
+    ],
+    "L3": [
+      4,
+      4,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3
+    ]
+  },
+  "bias_q": [
+    -1,
+    0,
+    0,
+    2
+  ],
+  "frames": 620,
+  "acc_q6": 0.7290322780609131,
+  "acc_float_ref": 0.7290322780609131,
+  "q6_vs_float_agree": 620,
+  "layout": "L1/L2 [N,8,64,64] bit; L3 [N,8,64,64] bit; L4 2048 bit; L5 int32 Q6 scores",
+  "note": "bit-domain pad 0 == -1 in pm1 domain; theta floor; Q6 FC bias",
+  "replay_argmax_match": 620
+}

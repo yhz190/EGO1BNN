@@ -1,0 +1,57 @@
+# NOTE: build products (*.bit, *.rpt) are gitignored, but the submission archive
+# includes board/bitstream/*.bit and build/*.rpt; see README "Repository layout".
+
+
+# build outputs
+build/_build/
+*.bit
+*.dcp
+*.rpt
+*.jou
+*.log
+!data/t8_rtl/run620.log
+*.str
+*.wdb
+*.hdf
+*.mcs
+*.prm
+.Xil/
+_impact/
+vivado_*.backup.*
+.sim/
+*.pb
+*.vcd
+*.fsdb
+_dbg/
+
+# system / editor
+Thumbs.db
+desktop.ini
+~$*
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# local captures / training caches
+data/onsite/
+data/live/
+*.pt
+*.pt.bak
+
+# firmware build outputs
+src/firmware/*.elf
+src/firmware/*.bin
+src/firmware/*.o
+src/firmware/fw.hex
+src/firmware/bnn/*.elf
+src/firmware/bnn/*.bin
+src/firmware/bnn/fw.hex
+
+# backup files
+*.bak*
+*.bak2_*

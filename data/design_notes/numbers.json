@@ -1,0 +1,508 @@
+{
+  "schema": "ego1-bnn/numbers@1",
+  "generated_at": "2026-11-01T18:30:20+08:00",
+  "generator": "src/pc/gen_numbers.py",
+  "policy": "文档只能引用本文件现行值；旧值见 superseded 段，禁止再写入验收口径",
+  "t10_key8": [
+    "performance.engine_cycles",
+    "performance.fps_engine",
+    "resource.lut_total",
+    "resource.ff",
+    "model.t1a",
+    "model.t1b",
+    "model.board_acc",
+    "protocol.downlink_bytes"
+  ],
+  "project": {
+    "git_head": {
+      "value": "ref: refs/heads/master",
+      "source": ".git/HEAD",
+      "auto": true,
+      "note": "纯文件读取，未调用 git 命令"
+    },
+    "git_tag_latest": {
+      "value": "v2.2-demo-b6",
+      "source": ".git/refs/tags（mtime 最新）",
+      "auto": true
+    },
+    "git_tags": {
+      "value": [
+        "v2.2-demo-b6",
+        "v2.2-freeze",
+        "v2.2-patch1",
+        "v2.2-patch2",
+        "v2.2-patch2.1",
+        "v2.2a-freeze"
+      ],
+      "source": ".git/refs/tags",
+      "auto": true
+    },
+    "baseline_spec": {
+      "value": "report/design_notes/v2.2_baseline_spec.md",
+      "source": "report/design_notes/v2.2_baseline_spec.md",
+      "auto": false
+    },
+    "git_note": "该段为打包时在开发机快照上读取；随包源码不含 .git，无法直接执行 git 回滚。"
+  },
+  "performance": {
+    "engine_cycles": {
+      "value": 16911,
+      "unit": "cycle",
+      "source": "report/design_notes/v2.2_baseline_spec.md#§6.3",
+      "auto": false,
+      "note": "L1..L5+done 拍数求和；T8 620 帧逐帧实测同为 16,911"
+    },
+    "freq_mhz": {
+      "value": 50,
+      "unit": "MHz",
+      "source": "report/design_notes/v2.2_baseline_spec.md#§3.1 与 §15.B",
+      "auto": false,
+      "note": "clk_sys = 寄存器二分频+BUFG 100/2；VGA 等效 25 MHz 使能"
+    },
+    "frame_us": {
+      "value": 338.2,
+      "unit": "us",
+      "source": "report/design_notes/v2.2_baseline_spec.md#§6.3",
+      "auto": false,
+      "note": "16,911 / 50 MHz = 338.22 µs，文档口径 338.2"
+    },
+    "fps_engine": {
+      "value": 2957,
+      "unit": "fps",
+      "source": "report/design_notes/v2.2_baseline_spec.md#§6.3",
+      "auto": false,
+      "note": "引擎独占峰值；1e6/338.22 = 2,956.6 → 取 2,957"
+    },
+    "fps_end_to_end": {
+      "value": 59.55,
+      "unit": "fps",
+      "source": "sim/t4b_stream_injection.md#§1（T4a 口径）",
+      "auto": false,
+      "note": "620 帧 / 10.4 s，含 PC 逐帧预处理 + 停等；T4a 判据 ≥30"
+    },
+    "fps_streaming": {
+      "value": 180.56,
+      "unit": "fps",
+      "source": "sim/t4b_stream_injection.md#§2（T4b 口径）",
+      "auto": false,
+      "note": "预打包流式注入 3.434 s/620 帧；理论 178.3；T4b 判据 ≥150"
+    }
+  },
+  "resource": {
+    "lut_total": {
+      "value": 4405,
+      "unit": "LUT",
+      "source": "build/impl_util.rpt",
+      "auto": false,
+      "note": "= 4,184 logic + 221 LUTRAM（S1 修复后最终 route 值）；判据 ≤5,000"
+    },
+    "lut_logic": {
+      "value": 4184,
+      "unit": "LUT",
+      "source": "build/impl_util.rpt",
+      "auto": false
+    },
+    "lut_ram": {
+      "value": 221,
+      "unit": "LUT",
+      "source": "build/impl_util.rpt",
+      "auto": false
+    },
+    "ff": {
+      "value": 5578,
+      "unit": "FF",
+      "source": "build/impl_util.rpt",
+      "auto": false
+    },
+    "bram_equiv": {
+      "value": 5.0,
+      "unit": "RAMB36-equiv",
+      "source": "sim/vga_implementation.md#§2",
+      "auto": false,
+      "note": "4×RAMB36 + 2×RAMB18；VGA 未增加 BRAM；判据 ≤6.0"
+    },
+    "dsp": {
+      "value": 0,
+      "unit": "DSP",
+      "source": "sim/vga_implementation.md#§2",
+      "auto": false,
+      "note": "双闸门保证"
+    },
+    "wns_ns": {
+      "value": 4.136,
+      "unit": "ns",
+      "source": "build/impl_timing.rpt#clk50",
+      "auto": false,
+      "note": "clk50 引擎域（50 MHz），13,226 端点；sys_clk_100m 域 +8.892 ns（1 端点）；判据 ≥0"
+    },
+    "patch2_no_vga": {
+      "lut_total": {
+        "value": 4042,
+        "unit": "LUT",
+        "source": "sim/vga_implementation.md#§2 对照列",
+        "auto": false,
+        "status": "superseded",
+        "superseded_by": "resource.lut_total"
+      },
+      "ff": {
+        "value": 5542,
+        "unit": "FF",
+        "source": "sim/vga_implementation.md#§2 对照列",
+        "auto": false,
+        "status": "superseded",
+        "superseded_by": "resource.ff"
+      },
+      "wns_ns": {
+        "value": 8.375,
+        "unit": "ns",
+        "source": "sim/vga_implementation.md#§2 对照列",
+        "auto": false,
+        "status": "superseded",
+        "superseded_by": "resource.wns_ns"
+      }
+    },
+    "wns_sysclk_ns": {
+      "value": 8.892,
+      "unit": "ns",
+      "source": "build/impl_timing.rpt#sys_clk_100m",
+      "auto": false,
+      "note": "100 MHz 源时钟域（仅分频寄存器，1 端点）"
+    }
+  },
+  "model": {
+    "t1a": {
+      "value": 96.07,
+      "unit": "%",
+      "source": "sim/20261101_G2正式结果与域适配.md#§1（G2 正式口径）",
+      "auto": false,
+      "note": "3 有效 seed：95.74/95.74/96.74；seed3 按 G4 拒收；判据 ≥95"
+    },
+    "t1a_sigma": {
+      "value": 0.47,
+      "unit": "pp",
+      "source": "sim/20261101_G2正式结果与域适配.md#§1",
+      "auto": false
+    },
+    "t1b": {
+      "value": 98.89,
+      "unit": "%",
+      "source": "sim/b6_calibration_final_deploy.md#§1",
+      "auto": false,
+      "note": "B6 同环境留出 180 帧、2 seed；判据 ≥85"
+    },
+    "t1b_sigma": {
+      "value": 0.56,
+      "unit": "pp",
+      "source": "sim/b6_calibration_final_deploy.md#§1",
+      "auto": false
+    },
+    "t1b_frames": {
+      "value": 180,
+      "unit": "frame",
+      "source": "sim/b6_calibration_final_deploy.md#§1",
+      "auto": false
+    },
+    "t1b_seeds": {
+      "value": 2,
+      "unit": "seed",
+      "source": "sim/b6_calibration_final_deploy.md#§1",
+      "auto": false
+    },
+    "t1b_deployed_s1": {
+      "value": 99.44,
+      "unit": "%",
+      "source": "sim/b6_calibration_final_deploy.md#§3",
+      "auto": false,
+      "note": "部署 ckpt B6_DA_s1 单 seed；= 179/180"
+    },
+    "rps_vectors_diag": {
+      "value": 0.779,
+      "unit": "ratio",
+      "source": "board/weights/hw_b6/manifest.json#acc_q6_on_vectors",
+      "auto": true,
+      "note": "RPS 620 向量跨域诊断（原始 0.7790322，仅诊断不参与验收）"
+    },
+    "board_match": {
+      "value": "180/180",
+      "unit": "frame",
+      "source": "sim/b6_calibration_final_deploy.md#§3",
+      "auto": false,
+      "note": "板端 B6 测试集逐帧与模型一致（CRC/cls/sat8 全对）",
+      "numerator": 180,
+      "denominator": 180
+    },
+    "board_acc": {
+      "value": 99.44,
+      "unit": "%",
+      "source": "sim/b6_calibration_final_deploy.md#§3",
+      "auto": false,
+      "note": "= 179/180 板端真实标签准确率"
+    }
+  },
+  "protocol": {
+    "downlink_bytes": {
+      "value": 517,
+      "unit": "B",
+      "source": "report/design_notes/v2.2_baseline_spec.md#§7.1 与 report/design_notes/18_协议细节确认_CRC覆盖范围.md#决定",
+      "auto": false,
+      "note": "1+1+2+512+1；CRC8 覆盖 [0..515]"
+    },
+    "uplink_bytes": {
+      "value": 10,
+      "unit": "B",
+      "source": "report/design_notes/v2.2_baseline_spec.md#§7.1 与 report/design_notes/18_协议细节确认_CRC覆盖范围.md#决定",
+      "auto": false,
+      "note": "1+1+1+3+1+1+1+1；CRC8 覆盖 [0..8]"
+    },
+    "crc8_poly": {
+      "value": "0x07",
+      "source": "report/design_notes/v2.2_baseline_spec.md#§7.1",
+      "auto": false
+    },
+    "blob_words": {
+      "value": 271,
+      "unit": "word",
+      "source": "board/weights/hw_b6/manifest.json#words",
+      "auto": true
+    },
+    "blob_bits": {
+      "value": 8648,
+      "unit": "bit",
+      "source": "board/weights/hw_b6/manifest.json#bits",
+      "auto": true,
+      "note": "8,648 bit → 271 字（对齐 8,672 bit = 1,084 B）"
+    },
+    "blob_crc16_formal": {
+      "value": "0xB8C7",
+      "source": "board/weights/hw/manifest.json#crc16",
+      "auto": true,
+      "note": "模型 FORMAL_l3x8_s4.pt"
+    },
+    "blob_crc16_b5": {
+      "value": "0x020B",
+      "source": "board/weights/hw_b5/manifest.json#crc16",
+      "auto": true,
+      "note": "模型 B5_DA_s2.pt"
+    },
+    "blob_crc16_b6": {
+      "value": "0x3569",
+      "source": "board/weights/hw_b6/manifest.json#crc16",
+      "auto": true,
+      "note": "模型 B6_DA_s1.pt（当前部署 blob）"
+    }
+  },
+  "acceptance": {
+    "checks_pipeline": {
+      "value": 115,
+      "unit": "check",
+      "source": "sim/20261101_patch2_RTL适配记录.md#§1/§4",
+      "auto": false,
+      "note": "tb_pipeline；负控 4 变异体被抓 + 空目录复跑一致"
+    },
+    "checks_top": {
+      "value": 147,
+      "unit": "check",
+      "source": "sim/vga_implementation.md#§1 与 sim/20261101_top_bnn集成记录.md#§14.3",
+      "auto": false,
+      "note": "tb_top_bnn（含 VGA 集成）147/147 PASS"
+    },
+    "t8_frames": {
+      "value": 620,
+      "unit": "frame",
+      "source": "sim/t8_rtl_regression.md#§1",
+      "auto": false,
+      "note": "620/620 逐 bit 一致；每帧 16,911 拍"
+    },
+    "t4b_criterion": {
+      "value": 150,
+      "unit": "fps",
+      "source": "report/design_notes/v2.2_baseline_spec.md#§1.3（T4b 判据）",
+      "auto": false,
+      "note": "≥150 fps；实测 180.56"
+    }
+  },
+  "data": {
+    "live_frames_total": {
+      "value": 2992,
+      "unit": "frame",
+      "source": "data/live/_manifest.csv（行数）",
+      "auto": true,
+      "note": "按 manifest 行数记（含重复文件名）；快照时间 2026-11-01T18:29:26+08:00",
+      "volatile": true
+    },
+    "live_frames_unique": {
+      "value": 2721,
+      "unit": "frame",
+      "source": "data/live/_manifest.csv（唯一文件名）",
+      "auto": true,
+      "note": "重复文件名 271 个（跨会话重名）"
+    },
+    "live_manifest_mtime": {
+      "value": "2026-11-01T18:29:26+08:00",
+      "source": "data/live/_manifest.csv（mtime）",
+      "auto": true,
+      "note": "采集仍在追加时该值会变，重跑 gen_numbers.py 刷新"
+    },
+    "live_class_counts": {
+      "junk": {
+        "value": 835,
+        "unit": "frame",
+        "source": "data/live/_manifest.csv#class",
+        "auto": true
+      },
+      "paper": {
+        "value": 795,
+        "unit": "frame",
+        "source": "data/live/_manifest.csv#class",
+        "auto": true
+      },
+      "rock": {
+        "value": 765,
+        "unit": "frame",
+        "source": "data/live/_manifest.csv#class",
+        "auto": true
+      },
+      "scissors": {
+        "value": 597,
+        "unit": "frame",
+        "source": "data/live/_manifest.csv#class",
+        "auto": true
+      }
+    },
+    "class_map": {
+      "0": {
+        "value": "rock",
+        "source": "src/pc/class_map.py#CLASS_MAP",
+        "auto": true
+      },
+      "1": {
+        "value": "paper",
+        "source": "src/pc/class_map.py#CLASS_MAP",
+        "auto": true
+      },
+      "2": {
+        "value": "scissors",
+        "source": "src/pc/class_map.py#CLASS_MAP",
+        "auto": true
+      },
+      "3": {
+        "value": "junk",
+        "source": "src/pc/class_map.py#CLASS_MAP",
+        "auto": true
+      }
+    }
+  },
+  "superseded": {
+    "note": "旧值黑名单：文档中出现这些值且无历史上下文/同行无新值时，check_numbers.py 报过期",
+    "allow_coexist": [
+      59.55,
+      180.56
+    ],
+    "items": [
+      {
+        "value": 19410,
+        "unit": "cycle",
+        "label": "每帧拍数（patch1 行缓冲 3×65 版）",
+        "replaced_by": "performance.engine_cycles",
+        "replace_with": 16911,
+        "note": "patch2 实测 16,911 拍；19,410 仅历史留痕",
+        "source": "report/design_notes/v2.2_baseline_spec.md#§0 历史修订 / 验收矩阵执行表#§四"
+      },
+      {
+        "value": 2576,
+        "unit": "fps",
+        "label": "引擎峰值帧率（patch1）",
+        "replaced_by": "performance.fps_engine",
+        "replace_with": 2957,
+        "note": "patch1 19,410 拍 @50MHz 的倒数值；patch2 为 2,957",
+        "source": "report/design_notes/v2.2_baseline_spec.md#§0 历史修订 / 验收矩阵执行表#§四"
+      },
+      {
+        "value": 1244,
+        "unit": "bit",
+        "label": "权重表位数（v2.1，junk 四类初期）",
+        "replaced_by": "protocol.blob_bits",
+        "replace_with": 8648,
+        "note": "v2.1 口径 1,244 bit = 156 B；patch2 8 通道 Q6 为 8,648 bit",
+        "source": "report/design_notes/v2.2_baseline_spec.md#§0 历史修订 / 验收矩阵执行表#§四"
+      },
+      {
+        "value": 4448,
+        "unit": "bit",
+        "label": "权重表位数（4 通道版）",
+        "replaced_by": "protocol.blob_bits",
+        "replace_with": 8648,
+        "note": "4 通道归档值；8 通道 patch2 为 8,648 bit",
+        "source": "report/design_notes/v2.2_baseline_spec.md#§0 历史修订 / 验收矩阵执行表#§四"
+      },
+      {
+        "value": 8693,
+        "unit": "LUT",
+        "label": "整机 Slice LUTs（patch2 优化前全集）",
+        "replaced_by": "resource.lut_total",
+        "replace_with": 4405,
+        "note": "含 LUT as Memory 1,761；优化后 4,042（无 VGA）/4,405（含 VGA）",
+        "source": "report/design_notes/v2.2_baseline_spec.md#§0 历史修订 / 验收矩阵执行表#§四"
+      },
+      {
+        "value": 3821,
+        "unit": "LUT",
+        "label": "LUT as Logic（patch2 无 VGA）",
+        "replaced_by": "resource.lut_logic",
+        "replace_with": 4184,
+        "note": "含 VGA 后 Logic 4,184（+365）",
+        "source": "report/design_notes/v2.2_baseline_spec.md#§0 历史修订 / 验收矩阵执行表#§四"
+      },
+      {
+        "value": 4042,
+        "unit": "LUT",
+        "label": "LUT 总量（patch2 无 VGA）",
+        "replaced_by": "resource.lut_total",
+        "replace_with": 4405,
+        "note": "含 VGA 版为 4,405（+365）",
+        "source": "sim/vga_implementation.md#§2（对照列）"
+      },
+      {
+        "value": 5542,
+        "unit": "FF",
+        "label": "FF（patch2 无 VGA）",
+        "replaced_by": "resource.ff",
+        "replace_with": 5578,
+        "note": "含 VGA 版为 5,578（+36）",
+        "source": "sim/vga_implementation.md#§2（对照列）"
+      },
+      {
+        "value": 8.375,
+        "unit": "ns",
+        "label": "WNS（patch2 无 VGA）",
+        "replaced_by": "resource.wns_ns",
+        "replace_with": 4.136,
+        "note": "含 VGA 版为 +4.136 ns",
+        "source": "sim/vga_implementation.md#§2（对照列）"
+      }
+    ]
+  },
+  "final_demo": {
+    "note": "2026-11-02 最终演示版本（独立于下方冻结验收口径）",
+    "bitstream": {
+      "value": "ego1_bnn_onsite_cur16_1102.bit",
+      "md5": "b46b1fd6f6d256dd84c8a60fd1a91141",
+      "source": "report/delivery_manifest.md"
+    },
+    "model_blob": {
+      "value": "board/weights/onsite_cur16_1102/weights.hex",
+      "md5": "158a1aac81c0cceea32ecc05595f71fb",
+      "note": "最终演示模型（全量数据 + 空间光照增广），v5 271 字"
+    },
+    "session_holdout_acc": {
+      "value": 90.1,
+      "unit": "%",
+      "note": "现场留出集 162 帧"
+    },
+    "board_match": {
+      "value": "162/162",
+      "unit": "frame",
+      "note": "板端自检与模型逐帧一致"
+    }
+  }
+}
